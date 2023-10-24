@@ -7,8 +7,8 @@ on:
       - feature/*
 
   schedule:
-    - cron: '45 19 * * 1' 
-    - cron: '00 0 * * 2'
+    - cron: '45 19 * * 1'  # 15:45 UTC (11:45 AM BOT-GMT-4) cada lunes
+    - cron: '00 0 * * 2'   # 20:00 UTC (4:00 PM BOT-GMT-4) cada lunes
 
 jobs:
   test:
@@ -42,4 +42,4 @@ jobs:
 
       - name: Deploying the project
         run: |
-          echo "Deployando"
+          echo "Deployando..."
