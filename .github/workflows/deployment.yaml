@@ -1,0 +1,43 @@
+name: CI/CD Workflow
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 19 * * 1,2,3,4,5" # Se ejecutará a las 15:45 (hora local) de lunes a viernes
+  push:
+    branches:
+      - 'feature/something'
+      - 'feature/something1'
+  pull_request:
+    branches:
+      - 'release/1.0'
+      - 'release/1.1'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v2
+
+      - name: Ejecutar pruebas
+        run: |npm test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v2
+
+      - name: Construir la aplicación
+        run: |npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v2
+
+      - name: Desplegar a producción
+        if: github.ref == 'refs/heads/release/1.0' || github.ref == 'refs/heads/release/1.1'
+        run: |kubectl apply -f deployment.yaml
