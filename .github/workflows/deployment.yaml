@@ -7,7 +7,7 @@ on:
       - feature/*
 
   schedule:
-    - cron: '45 19 * * 1'
+    - cron: '45 19 * * 1' 
     - cron: '00 0 * * 2'
 
 jobs:
